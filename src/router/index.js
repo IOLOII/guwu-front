@@ -148,6 +148,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/guwu',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Guwu',
+        component: () => import('@/views/guwu/index'),
+        meta: { title: '古悟珠宝客户积分维护', icon: 'form' }
+      }
+    ]
+  },
 
   {
     path: 'external-link',

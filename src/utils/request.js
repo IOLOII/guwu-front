@@ -5,9 +5,11 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
+  // baseURL: 'localhost:2414',
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  // timeout: 5000, // request timeout
+  responseType: 'json'
 })
 
 // request interceptor
@@ -20,6 +22,18 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
+    }
+    // 避免缓存
+    if (config.method === 'post') {
+      config.data = {
+        ...config.data,
+        _t: Date.parse(new Date()) / 1000
+      }
+    } else if (config.method === 'get') {
+      config.params = {
+        _t: Date.parse(new Date()) / 1000,
+        ...config.params
+      }
     }
     return config
   },
@@ -44,9 +58,8 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    if (res.code > 299) {
       Message({
         message: res.message || 'Error',
         type: 'error',
