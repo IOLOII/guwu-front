@@ -7,3 +7,12 @@ export function getUserMB(params) {
     params
   })
 }
+// TODO: formdata查询方式
+export function fileUpload(params) {
+  debugger
+  return request({
+    url: '/guwu/fileUpload',
+    method: 'post',
+    params
+  })
+}

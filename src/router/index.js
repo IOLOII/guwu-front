@@ -160,6 +160,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/upload',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'UploadFile',
+        component: () => import('@/views/uploadFile/index'),
+        meta: { title: '抖音我打订单合并', icon: 'form' }
+      }
+    ]
+  },
 
   {
     path: 'external-link',
