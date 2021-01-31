@@ -9,6 +9,7 @@ import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
+import './utils/formatter'
 
 import '@/styles/index.scss' // global css
 
