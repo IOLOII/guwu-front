@@ -24,10 +24,13 @@ service.interceptors.request.use(
     //   config.headers['X-Token'] = getToken()
     // }
     // 避免缓存
+    // 会改文件上传的content-type
     if (config.method === 'post') {
-      config.data = {
-        ...config.data,
-        _t: Date.parse(new Date()) / 1000
+      if (!config.data.toString().indexOf('FormData')) {
+        config.data = {
+          ...config.data,
+          _t: Date.parse(new Date()) / 1000
+        }
       }
     } else if (config.method === 'get') {
       config.params = {
