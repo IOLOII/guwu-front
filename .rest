@@ -1,0 +1,12 @@
+
+GET http://localhost:2414 HTTP/1.1
+### 
+GET http://localhost:2414/test HTTP/1.1
+###
+POST http://localhost:2414/fileUpload HTTP/1.1
+Content-Type: 'application/x-www-form-urlencoded'
+
+{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}

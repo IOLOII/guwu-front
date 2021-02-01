@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+// import qs from 'qs'
 
 export function getUserMB(params) {
   return request({
@@ -7,12 +8,12 @@ export function getUserMB(params) {
     params
   })
 }
+
 // TODO: formdata查询方式
-export function fileUpload(params) {
-  debugger
+export function fileUpload(data) {
   return request({
     url: '/guwu/fileUpload',
     method: 'post',
-    params
+    data
   })
 }
