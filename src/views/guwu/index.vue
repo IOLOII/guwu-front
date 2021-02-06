@@ -95,6 +95,8 @@ export default {
         this.tableData = res.data
         this.$forceUpdate()
         this.loading = false
+      }).catch(() => {
+        this.loading = false
       })
     },
     searchparam() {
@@ -102,6 +104,8 @@ export default {
       getUserMB({ user_phone: this.phone }).then(res => {
         this.tableData = res.data
         this.$forceUpdate()
+        this.loading = false
+      }).catch(() => {
         this.loading = false
       })
     },
@@ -111,6 +115,8 @@ export default {
       getUserMB({ user_phone: this.phone, order: order, property: property }).then(res => {
         this.tableData = res.data
         this.$forceUpdate()
+        this.loading = false
+      }).catch(() => {
         this.loading = false
       })
     },
