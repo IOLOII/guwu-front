@@ -14,12 +14,12 @@
     <el-input v-model="phone" size="medium" placeholder="请输入电话">
       <el-button slot="append" icon="el-icon-search" @click="searchparam" />
     </el-input>
-
+    <!-- <div class="gGrid"> -->
     <vxe-grid
       ref="xGrid"
       border
       resizable
-      height="530"
+      height="600"
       align="center"
       :loading="loading"
       :data="tableData"
@@ -34,6 +34,7 @@
       <vxe-table-column field="update_time" title="最后更新" :formatter="['formatDate']" sortable />
       <vxe-table-column field="user_mb" title="GMB (积分)" sortable /> -->
     </vxe-grid>
+    <!-- </div> -->
     <vxe-pager
       :current-page="tablePage.currentPage"
       :page-size="tablePage.pageSize"
@@ -41,6 +42,7 @@
       :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
       @page-change="handlePageChange"
     />
+
   </div>
 </template>
 
@@ -130,5 +132,10 @@ export default {
 <style lang="scss" scoped>
   .el-input{
     width: 180px;
+  }
+  .app-container{
+  }
+  .gGrid{
+    // height: 100% !important;
   }
 </style>
