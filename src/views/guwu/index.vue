@@ -1,49 +1,44 @@
 <template>
-  <div class="app-container">
-    <!-- <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
-
-    </el-table> -->
-
-    <el-input v-model="phone" size="medium" placeholder="请输入电话">
-      <el-button slot="append" icon="el-icon-search" @click="searchparam" />
-    </el-input>
-    <!-- <div class="gGrid"> -->
-    <vxe-grid
-      ref="xGrid"
-      border
-      resizable
-      height="600"
-      align="center"
-      :loading="loading"
-      :data="tableData"
-      :columns="tableColumn"
-      :sort-config="{trigger: 'cell', defaultSort: {field: 'age', order: 'desc'}, orders: ['desc', 'asc', null]}"
-      @sort-change="sortChangeEvent"
-    >
-      <!-- <vxe-table-column type="seq" width="60" />
-      <vxe-table-column field="user_phone" title="用户电话" />
-      <vxe-table-column field="user_name" title="用户名" />
-      <vxe-table-column field="create_time" title="入库时间" :formatter="['formatDate','yyyy-MM-dd']" sortable />
-      <vxe-table-column field="update_time" title="最后更新" :formatter="['formatDate']" sortable />
-      <vxe-table-column field="user_mb" title="GMB (积分)" sortable /> -->
-    </vxe-grid>
-    <!-- </div> -->
-    <vxe-pager
-      :current-page="tablePage.currentPage"
-      :page-size="tablePage.pageSize"
-      :total="tablePage.totalResult"
-      :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
-      @page-change="handlePageChange"
-    />
-
-  </div>
+  <el-container :direction="vertical" style="height: calc(100vh - 50px);">
+    <el-header height="54px" class="toolbar-header">
+      <!-- Header content -->
+      <el-input v-model="phone" size="medium" placeholder="请输入电话">
+        <el-button slot="append" icon="el-icon-search" @click="searchparam" />
+      </el-input>
+    </el-header>
+    <el-container :direction="horizontal">
+      <!-- <el-aside width="200px">
+          Aside content
+        </el-aside> -->
+      <el-container :direction="vertical">
+        <el-main height="" style="height:calc(100% - 102px);padding:0px 20px;">
+          <!-- Main content -->
+          <vxe-grid
+            ref="xGrid"
+            border
+            resizable
+            height="auto"
+            align="center"
+            :loading="loading"
+            :data="tableData"
+            :columns="tableColumn"
+            :sort-config="{trigger: 'cell', defaultSort: {field: 'age', order: 'desc'}, orders: ['desc', 'asc', null]}"
+            @sort-change="sortChangeEvent"
+          />
+        </el-main>
+        <el-footer height="48px">
+          <!-- Footer content -->
+          <vxe-pager
+            :current-page="tablePage.currentPage"
+            :page-size="tablePage.pageSize"
+            :total="tablePage.totalResult"
+            :layouts="['PrevPage', 'JumpNumber', 'NextPage', 'FullJump', 'Sizes', 'Total']"
+            @page-change="handlePageChange"
+          />
+        </el-footer>
+      </el-container>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
@@ -133,9 +128,9 @@ export default {
   .el-input{
     width: 180px;
   }
-  .app-container{
-  }
-  .gGrid{
-    // height: 100% !important;
+  .toolbar-header{
+    display: flex;
+    height: 100%;
+    align-items: center;
   }
 </style>
