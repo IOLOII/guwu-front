@@ -17,3 +17,11 @@ export function fileUpload(data) {
     data
   })
 }
+
+export function startAffair(data) {
+  return request({
+    url: '/guwu/importExcel2Sql',
+    method: 'post',
+    data
+  })
+}

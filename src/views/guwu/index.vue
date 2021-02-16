@@ -1,16 +1,16 @@
 <template>
-  <el-container :direction="vertical" style="height: calc(100vh - 50px);">
+  <el-container style="height: calc(100vh - 50px);">
     <el-header height="54px" class="toolbar-header">
       <!-- Header content -->
       <el-input v-model="phone" size="medium" placeholder="请输入电话">
         <el-button slot="append" icon="el-icon-search" @click="searchparam" />
       </el-input>
     </el-header>
-    <el-container :direction="horizontal">
+    <el-container>
       <!-- <el-aside width="200px">
           Aside content
         </el-aside> -->
-      <el-container :direction="vertical">
+      <el-container>
         <el-main height="" style="height:calc(100% - 102px);padding:0px 20px;">
           <!-- Main content -->
           <vxe-grid
@@ -125,12 +125,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
   .el-input{
     width: 180px;
   }
-  .toolbar-header{
-    display: flex;
-    height: 100%;
-    align-items: center;
-  }
+  // 通用表格样式
+@import "@/styles/commonListPage.scss";
+  // .toolbar-header{
+  //   display: flex;
+  //   height: 100%;
+  //   align-items: center;
+  // }
 </style>

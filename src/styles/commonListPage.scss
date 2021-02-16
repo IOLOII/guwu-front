@@ -1,0 +1,142 @@
+// 表格管理界面样式
+
+.commonPage {
+  height: calc(100% - 2px); // 莫名滚动条
+}
+
+.toolbar-header {
+  // height: 45px !important;
+  background: #fafafb;
+  //   border-bottom: 1px solid #ececec;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.page-table {
+  padding: 0 15px 15px;
+  overflow: hidden;
+  position: relative;
+  background: #fafafb;
+  overflow: visible;
+  box-sizing: border-box;
+  .page-table-mian {
+    height: 100%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+}
+
+.toolbar {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  & >>> .el-button + .el-button {
+    margin-left: 0px;
+  }
+  & .toolbar-left {
+    flex-shrink: 0;
+  }
+  & .toolbar-right {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .toobarbtnsItem {
+    color: #8091a5;
+    font-size: 14px;
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    & >>> svg.svg-icon,
+    & >>> i.icon {
+      font-size: 16px;
+      margin-right: 5px;
+    }
+  }
+  .toobarbtnsItem:hover {
+    color: #3582fb;
+  }
+  .separator {
+    border-right: 1px solid #dfe6ee;
+    width: 1px;
+    margin: 0 10px;
+    height: 18px;
+  }
+  .toobarFilters {
+    display: flex;
+    align-items: center;
+    .label-text {
+      color: #8091a5;
+      font-size: 14px;
+      font-weight: normal;
+      padding-right: 5px;
+    }
+  }
+  .toobarbtns {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.page-footer {
+  padding: 0;
+  height: 50px!important;
+  background: #ffffff;
+  border: #e8eaec 1px solid;
+  border-top: 0;
+}
+
+
+.asideList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-right: 1px solid #dfdada;
+  margin-right: 16px;
+  padding: 0 14px 0 10px;
+  position: relative;  
+  .asideList-main {
+    overflow: auto;
+    flex-grow: 1;
+  }
+}
+.aside-toolbar {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  .aside-toolbar-add {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;;
+    align-items: center;
+    cursor: pointer;
+    line-height: 20px;
+    &:hover {
+      color: #3582fb;
+    }
+    i {
+      font-size: 16px;
+      margin-right: 5px;
+    }
+  }
+  .aside-toolbar-right {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+  }
+
+  .aside-toolbar-Item {
+    cursor: pointer;
+    color: #8091a5;
+    &:hover {
+      color: #3582fb;
+    }
+  }
+}
