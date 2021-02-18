@@ -1,5 +1,6 @@
 import request from '@/utils/request'
-// import qs from 'qs'
+// eslint-disable-next-line no-unused-vars
+import qs from 'qs'
 
 export function getUserMB(params) {
   return request({
@@ -23,5 +24,6 @@ export function startAffair(data) {
     url: '/guwu/importExcel2Sql',
     method: 'post',
     data
+    // data: qs.stringify({ a: '123', b: '23' })
   })
 }
