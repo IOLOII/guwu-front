@@ -36,7 +36,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+    // before: require('./mock/mock-server.js'),
     proxy: {
       '/dev-api/guwu': {
         target: 'http://localhost:2414/', // 设置你调用的接口域名 别忘了加http
