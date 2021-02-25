@@ -12,11 +12,12 @@
         :auto-upload="false"
         :http-request="upload"
         :multiple="false"
+        :show-file-list="false"
       >
         <el-button slot="trigger" size="medium">选取文件</el-button>
         <el-button style="margin-left: 10px;" size="medium" type="primary" @click="submitUpload">上传到服务器</el-button>
         <!-- <div slot="tip" class="el-upload__tip">只能上传xls文件</div> -->
-        <el-button type="primary" size="medium" @click="starAAA">点击开始同步</el-button>
+        <el-button type="primary" size="medium" @click="startMix">点击开始同步</el-button>
       </el-upload>
     </el-header>
     <el-container>
@@ -27,13 +28,18 @@
           border
           resizable
           height="auto"
+          header-align="center"
           align="center"
           :loading="loading"
           :data="tableData"
           :columns="tableColumn"
           :sort-config="{trigger: 'cell', defaultSort: {field: 'age', order: 'desc'}, orders: ['desc', 'asc', null]}"
           @sort-change="sortChangeEvent"
-        />
+        >
+          <template v-slot:operation="{ row }">
+            <el-button type="primary" size="medium" :disabled="row.g_status!==1" @click="starA(row)">{{ row.g_status!==1?"已导入":"导入数据库" }}</el-button>
+          </template>
+        </vxe-grid>
       </el-main>
       <el-footer height="48px">
         <!-- Footer content -->
@@ -51,7 +57,7 @@
 </template>
 
 <script>
-import { fileUpload, startAffair } from '@/api/guwu'
+import { fileUpload, startAffair, getFileList, mixSqlData2Temp } from '@/api/guwu'
 export default {
   data() {
     return {
@@ -63,24 +69,57 @@ export default {
       tablePage: {
         currentPage: 1,
         pageSize: 20,
-        totalResult: 20
+        totalResult: 40
       },
       tableColumn: [
         { type: 'seq', width: 50 },
-        { field: 'user_phone', title: '用户电话' },
-        { field: 'user_name', title: '用户名' },
+        { field: 'file_name', title: '文件名', align: 'right', headerAlign: 'center' },
+        { field: 'file_type', title: '文件类型', formatter: ({ cellValue }) => {
+          switch (cellValue) {
+            case 1: {
+              return '抖音店铺订单'
+            }
+            case 0: {
+              return '我打物流订单'
+            }
+            default: {
+              return '其他文件'
+            }
+          }
+        } },
         { field: 'create_time', title: '入库时间', formatter: ['formatDate', 'yyyy-MM-dd'], sortable: true },
         { field: 'update_time', title: '最后更新', formatter: ['formatDate'], sortable: true },
-        { field: 'user_mb', title: 'GMB (积分)', sortable: true }
+        { title: '操作', width: 160, showOverflow: true, slots: { default: 'operation' }}
       ],
       loading: false
 
     }
   },
+  watch: {
+    tableData: {
+      handler(newVal, oldVal) {
+        setTimeout(() => {
+          document.querySelector('.vxe-table--body-wrapper.body--wrapper').scrollTop = 0
+          this.value = newVal
+        })
+      },
+      deep: true
+    }
+  },
   mounted() {
-
+    this.do()
   },
   methods: {
+    do() {
+      this.loading = true
+      getFileList().then(res => {
+        this.tableData = res.data.data
+        this.tablePage.totalResult = res.data.totalResult
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
+      })
+    },
     submitUpload() {
       this.$refs.upload.submit()
     },
@@ -91,28 +130,68 @@ export default {
       console.log(file)
     },
     upload(params) {
+      this.loading = true
       const formData = new FormData()
       formData.append('file', params.file)
       fileUpload(formData).then(res => {
         console.log(res)
         this.fileList.shift()
+        this.do()
       }).catch(error => {
         console.log(error)
+        this.loading = false
       })
     },
     // 开始数据库导入excel中的数据
-    starAAA() {
+    starA(row) {
       var data = {
-        a: 123
+        fileName: row.file_name,
+        key: row.file_type === 0 ? 'woda' : (row.file_type === 1 ? 'tiktok' : -1)
       }
+      if (data.key === -1) return
       startAffair(data).then(res => {
         console.log(res)
       }).catch(error => {
         console.log(error)
       })
     },
-    sortChangeEvent() {},
-    handlePageChange() {}
+    startMix() {
+      mixSqlData2Temp({}).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    sortChangeEvent({ column, property, order }) {
+      this.loading = true
+      // console.log(arguments)
+      getFileList({
+        user_phone: this.phone,
+        order: order,
+        property: property }).then(res => {
+        this.tablePage.totalResult = res.data.totalResult
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
+      })
+    },
+    // 分页查询
+    handlePageChange({ currentPage, pageSize }) {
+      this.loading = true
+      this.tablePage.currentPage = currentPage
+      this.tablePage.pageSize = pageSize
+      getFileList({
+        currentPage: currentPage,
+        pageSize: pageSize
+      }).then(res => {
+        this.tableData = res.data.data
+        this.tablePage.totalResult = res.data.totalResult
+        // this.$forceUpdate()
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
+      })
+    }
   }
 }
 </script>

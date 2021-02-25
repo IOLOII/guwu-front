@@ -66,7 +66,7 @@ export default {
       tablePage: {
         currentPage: 1,
         pageSize: 20,
-        totalResult: 20
+        totalResult: 40
       },
       tableColumn: [
         { type: 'seq', width: 50 },
@@ -74,9 +74,22 @@ export default {
         { field: 'user_name', title: '用户名' },
         { field: 'create_time', title: '入库时间', formatter: ['formatDate', 'yyyy-MM-dd'], sortable: true },
         { field: 'update_time', title: '最后更新', formatter: ['formatDate'], sortable: true },
-        { field: 'user_mb', title: 'GMB (积分)', sortable: true }
+        { field: 'user_mb', title: 'GMB (积分)', sortable: true, formatter: ({ cellValue }) => {
+          return cellValue.toString().split('.')[0]
+        } }
       ],
       loading: false
+    }
+  },
+  watch: {
+    tableData: {
+      handler(newVal, oldVal) {
+        setTimeout(() => {
+          document.querySelector('.vxe-table--body-wrapper.body--wrapper').scrollTop = 0
+          this.value = newVal
+        })
+      },
+      deep: true
     }
   },
   created() {
@@ -86,11 +99,12 @@ export default {
     this.do()
   },
   methods: {
+    // 数据获取
     do() {
       this.loading = true
       getUserMB().then(res => {
-        this.tableData = res.data
-        this.$forceUpdate()
+        this.tableData = res.data.data
+        this.tablePage.totalResult = res.data.totalResult
         this.loading = false
       }).catch(() => {
         this.loading = false
@@ -99,7 +113,7 @@ export default {
     searchparam() {
       this.loading = true
       getUserMB({ user_phone: this.phone }).then(res => {
-        this.tableData = res.data
+        this.tableData = res.data.data
         this.$forceUpdate()
         this.loading = false
       }).catch(() => {
@@ -109,17 +123,32 @@ export default {
     sortChangeEvent({ column, property, order }) {
       this.loading = true
       // console.log(arguments)
-      getUserMB({ user_phone: this.phone, order: order, property: property }).then(res => {
-        this.tableData = res.data
-        this.$forceUpdate()
+      getUserMB({
+        user_phone: this.phone,
+        order: order,
+        property: property }).then(res => {
+        this.tablePage.totalResult = res.data.totalResult
         this.loading = false
       }).catch(() => {
         this.loading = false
       })
     },
-    // TODO:分页查询
+    // 分页查询
     handlePageChange({ currentPage, pageSize }) {
-      console.log(arguments)
+      this.loading = true
+      this.tablePage.currentPage = currentPage
+      this.tablePage.pageSize = pageSize
+      getUserMB({
+        currentPage: currentPage,
+        pageSize: pageSize
+      }).then(res => {
+        this.tableData = res.data.data
+        this.tablePage.totalResult = res.data.totalResult
+        // this.$forceUpdate()
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
+      })
     }
   }
 }
