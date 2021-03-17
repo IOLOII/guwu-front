@@ -15,6 +15,8 @@ export function isExternal(path) {
  * @returns {Boolean}
  */
 export function validUsername(str) {
-  const valid_map = ['admin', 'editor']
-  return valid_map.indexOf(str.trim()) >= 0
+  // TODO: 这里可以改成查询数据库
+  // const valid_map = ['admin', 'editor']
+  // return valid_map.indexOf(str.trim()) >= 0
+  return !!str.trim()
 }
