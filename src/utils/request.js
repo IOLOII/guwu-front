@@ -3,6 +3,7 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 // import qs from 'qs'
 import { getToken } from '@/utils/auth'
+import { formData } from '@/api/apiDemo'
 
 // create an axios instance
 const service = axios.create({
@@ -25,7 +26,8 @@ service.interceptors.request.use(
     // 避免缓存
     // 会改文件上传的content-type
     if (config.method === 'post') {
-      if (!config.data.toString().indexOf('FormData')) {
+      // if (config.data && !config.data.toString().indexOf('FormData')) {
+      if (!(config.data instanceof formData)) {
         config.data = {
           ...config.data,
           _t: Date.parse(new Date()) / 1000
@@ -60,7 +62,6 @@ service.interceptors.response.use(
  */
   response => {
     const res = response.data
-    debugger
     // if the custom code is not 20000, it is judged as an error.
     if (res.code > 299) {
       Message({

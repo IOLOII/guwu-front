@@ -18,7 +18,19 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
+    url: '/guwu/user/logout',
     method: 'post'
   })
 }
+
+/**
+ * @description 获取系统用户信息
+ */
+export function getUserInfoList(params) {
+  return request({
+    url: '/guwu/user/userInfoList',
+    method: 'get',
+    params
+  })
+}
+

@@ -53,9 +53,9 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
 
-        const { username, avatar } = data
+        const { user_name, avatar } = data
 
-        commit('SET_NAME', username)
+        commit('SET_NAME', user_name)
         commit('SET_AVATAR', avatar)
         resolve(data)
       }).catch(error => {
@@ -66,6 +66,7 @@ const actions = {
 
   // user logout
   logout({ commit, state }) {
+    debugger
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first

@@ -172,6 +172,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/userInfo',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'userInfo',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户管理', icon: 'form' }
+      }
+    ]
+  },
 
   // {
   //   path: 'external-link',

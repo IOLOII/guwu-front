@@ -2,7 +2,7 @@
   <el-container style="height: calc(100vh - 50px);">
     <el-header height="54px" class="toolbar-header">
       <!-- Header content -->
-      <el-input v-model="searchparam" size="medium" placeholder="请输入电话">
+      <el-input v-model="searchparam" size="medium" placeholder="请输入账号">
         <el-button slot="append" icon="el-icon-search" @click="searchParam" />
       </el-input>
     </el-header>
@@ -42,20 +42,9 @@
 </template>
 
 <script>
-// import { getList } from '@/api/table'
-import { getUserMB } from '@/api/guwu'
+import { getUserInfoList } from '@/api/user'
 
 export default {
-  // filters: {
-  //   statusFilter(status) {
-  //     const statusMap = {
-  //       published: 'success',
-  //       draft: 'gray',
-  //       deleted: 'danger'
-  //     }
-  //     return statusMap[status]
-  //   }
-  // },
   data() {
     return {
       searchparam: '',
@@ -70,12 +59,12 @@ export default {
       },
       tableColumn: [
         { type: 'seq', width: 50 },
-        { field: 'user_phone', title: '用户电话' },
         { field: 'user_name', title: '用户名' },
+        { field: 'user_phone', title: '用户电话' },
         { field: 'create_time', title: '入库时间', formatter: ['formatDate', 'yyyy-MM-dd'], sortable: true },
         { field: 'update_time', title: '最后更新', formatter: ['formatDate'], sortable: true },
-        { field: 'user_mb', title: 'GMB (积分)', sortable: true, formatter: ({ cellValue }) => {
-          return cellValue.toString().split('.')[0]
+        { field: 'g_status', title: '是否可登录', sortable: true, formatter: ({ cellValue }) => {
+          return cellValue === 1 ? '允许' : '禁止'
         } }
       ],
       loading: false
@@ -102,7 +91,7 @@ export default {
     // 数据获取
     do() {
       this.loading = true
-      getUserMB().then(res => {
+      getUserInfoList().then(res => {
         this.tableData = res.data.data
         this.tablePage.totalResult = res.data.totalResult
         this.loading = false
@@ -112,7 +101,7 @@ export default {
     },
     searchParam() {
       this.loading = true
-      getUserMB({ user_phone: this.searchparam }).then(res => {
+      getUserInfoList({ user_name: this.searchparam }).then(res => {
         this.tableData = res.data.data
         this.$forceUpdate()
         this.loading = false
@@ -123,8 +112,8 @@ export default {
     sortChangeEvent({ column, property, order }) {
       this.loading = true
       // console.log(arguments)
-      getUserMB({
-        user_phone: this.searchparam,
+      getUserInfoList({
+        user_name: this.searchparam,
         order: order,
         property: property }).then(res => {
         this.tablePage.totalResult = res.data.totalResult
@@ -138,7 +127,7 @@ export default {
       this.loading = true
       this.tablePage.currentPage = currentPage
       this.tablePage.pageSize = pageSize
-      getUserMB({
+      getUserInfoList({
         currentPage: currentPage,
         pageSize: pageSize
       }).then(res => {

@@ -95,6 +95,11 @@ export default {
 
     }
   },
+  computed: {
+    // fileNum: function() {
+    //   return this.fileList.length
+    // }
+  },
   watch: {
     tableData: {
       handler(newVal, oldVal) {
@@ -105,9 +110,15 @@ export default {
       },
       deep: true
     }
+    // 'fileList.length': {
+    //   handler(newVal, old) {
+    //     this.fileNum = this.fileList.length
+    //   }
+    // }
   },
   mounted() {
     this.do()
+    // window.t = this
   },
   methods: {
     do() {
@@ -130,6 +141,7 @@ export default {
       console.log(file)
     },
     upload(params) {
+      console.log(params)
       this.loading = true
       const formData = new FormData()
       formData.append('file', params.file)
