@@ -34,3 +34,11 @@ export function getUserInfoList(params) {
   })
 }
 
+export function addUserIn(data) {
+  return request({
+    url: '/guwu/user/addUser',
+    method: 'post',
+    data
+  })
+}
+

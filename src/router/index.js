@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '面板', icon: 'dashboard' }
     }]
   },
 
@@ -156,7 +156,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'Guwu',
         component: () => import('@/views/guwu/index'),
-        meta: { title: '古悟珠宝客户积分维护', icon: 'form' }
+        meta: { title: '客户积分维护', icon: 'form' }
       }
     ]
   },
@@ -168,18 +168,18 @@ export const constantRoutes = [
         path: 'index',
         name: 'UploadFile',
         component: () => import('@/views/uploadFile/index'),
-        meta: { title: '抖音我打订单合并', icon: 'form' }
+        meta: { title: '抖音&我打订单合并', icon: 'form' }
       }
     ]
   },
   {
-    path: '/userInfo',
+    path: '/users',
     component: Layout,
     children: [
       {
         path: 'index',
-        name: 'userInfo',
-        component: () => import('@/views/user/index'),
+        name: 'users',
+        component: () => import('@/views/users/index'),
         meta: { title: '用户管理', icon: 'form' }
       }
     ]

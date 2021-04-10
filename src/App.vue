@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App"
+};
 </script>
-<style>
+<style lang="scss">
 /* .app-container{
   padding: 20px;
   display: flex;
@@ -21,4 +21,16 @@ export default {
   height: calc(100% - 90px);
   margin-top: 6px;
 } */
+.el-row {
+  width: 100%;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  // & .el-row {
+  //   flex-wrap: nowrap;
+  // }
+}
+.el-dialog {
+  margin-top: 15vh;
+  width: 30%;
+}
 </style>
