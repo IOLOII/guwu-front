@@ -12,7 +12,8 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">用户(抖音)积分维护系统</h3>
+        <!-- <h3 class="title">用户(抖音)积分维护系统</h3> -->
+        <h3 class="title">样式</h3>
       </div>
 
       <el-form-item prop="username">
@@ -26,7 +27,8 @@
           name="username"
           type="text"
           tabindex="1"
-          auto-complete="on"
+          auto-complete="off"
+          autofocus
         />
       </el-form-item>
 
@@ -42,7 +44,7 @@
           placeholder="请输入密码"
           name="password"
           tabindex="2"
-          auto-complete="on"
+          auto-complete="off"
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
@@ -65,6 +67,7 @@
         <!-- <span> 默认密码:123456</span> -->
       </div>
     </el-form>
+    <div class="login-form-div"></div>
   </div>
 </template>
 
@@ -186,6 +189,11 @@ $radius: 12px;
         -webkit-text-fill-color: $cursor !important;
       }
     }
+    // 禁用autocomplete完成
+    input:-internal-autofill-selected {
+      box-shadow: inset 0 0 0 1000px #ffffff !important; // 改变了背景色
+      -webkit-text-fill-color: #ffffff; // 改变了字体颜色
+    }
   }
 
   .el-form-item {
@@ -236,6 +244,18 @@ $light_gray: #eee;
     padding: 0 35px 0;
     margin: 0 auto;
     overflow: hidden;
+  }
+  .login-form-div {
+    width: 520px;
+    max-width: 100%;
+    padding: 0 35px 0;
+    margin: 0 auto;
+    position: absolute;
+    height: 380px;
+    filter: blur(2px);
+    z-index: -1;
+    background: #5faeff29;
+    border-radius: 15px;
   }
 
   .tips {
