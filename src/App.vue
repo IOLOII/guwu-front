@@ -10,6 +10,9 @@ export default {
 };
 </script>
 <style lang="scss">
+body {
+  cursor: url("/image/Illustration/mouse.ico"), auto;
+}
 /* .app-container{
   padding: 20px;
   display: flex;
