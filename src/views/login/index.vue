@@ -12,8 +12,8 @@
       label-position="left"
     >
       <div class="title-container">
-        <!-- <h3 class="title">用户(抖音)积分维护系统</h3> -->
-        <h3 class="title">样式</h3>
+        <h3 class="title">用户(抖音)积分维护系统</h3>
+        <!-- <h3 class="title">样式</h3> -->
       </div>
 
       <el-form-item prop="username">
